@@ -1,16 +1,21 @@
-# website
+# Merigo Labs
 
-A new Flutter project.
+## Netlify Deployment
 
-## Getting Started
+1. Build app.
+```
+$ flutter clean
+$ flutter build web --web-renderer html --release
+```
 
-This project is a starting point for a Flutter application.
+2. Create netlify.toml in build/web.
+```toml
+[[redirects]]
+  from = "/.well-known/assetlinks.json"
+  to = "/assets/well-known/assetlinks.json"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  headers = {X-From = "Netlify"}
+```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Draw and drop build/web into Netlify's Deploys tab.
